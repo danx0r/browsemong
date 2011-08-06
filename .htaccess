@@ -1,0 +1,13 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^$ /view/index.py
+</IfModule>
+
+<FilesMatch ".*\.py">
+Options ExecCGI FollowSymLinks
+Order allow,deny
+Allow from all
+</FilesMatch>
+
+AddHandler wsgi-script .py

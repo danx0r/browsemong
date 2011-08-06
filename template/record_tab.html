@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<!-- saved from url=(0039)http://beta3.ourbricks.com/activity?see -->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:py="http://genshi.edgewall.org/" py:strip="">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>MONG</title>
+        <link rel="stylesheet" type="text/css" href="/css/style.css" media="all" />
+    </head>
+    <body>
+        <div>
+            <p>
+                ${Markup(items[0])}
+            </p>
+            <table border="1">
+                <tr py:for="row in items[1:]">
+                    <td py:for="item in row">
+                        ${Markup(item)}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>
