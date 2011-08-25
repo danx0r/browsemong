@@ -30,7 +30,7 @@ def buildRecord(rec, items):
             pass
         line = "<i>" + key + ":</i> "
         if '[' in val and ']' in val and val.rfind(']') - val.rfind('[') == 5:
-            query = '?action=query&q={"_id":"%s"}&collection=["Person","Group","Letter","Place","Archive","MPerson", "MPlace"]' % val
+            query = '?action=query&q={"_id":"%s"}&collection=["Person","Group","Letter","Place","Archive","MPerson", "MPlace", "Event"]' % val
             link = "<a href='%s' style='text-decoration:none'>%s</a>" % (query, val)
             line += link
         else:
