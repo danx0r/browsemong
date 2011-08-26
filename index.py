@@ -37,7 +37,7 @@ def buildRecord(rec, items):
             line += link
         else:
             print >> sys.stderr, "DEBUGX:", type(val), val
-            if (type(val) in seqTypes):# or (type(val)==type({})):
+            if (type(val) in seqTypes) or (type(val)==type({}) and len(val)>3):
                 val = "<pre>" + pprint.pformat(val) + "</pre>"
             line += "%s" % val
         line += "<br/>"
