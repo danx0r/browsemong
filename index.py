@@ -8,7 +8,7 @@ from bson.objectid import ObjectId
 con = pm.Connection()
 mong = con.mong
 from pprint import PrettyPrinter
-pprint = PrettyPrinter()
+pprint = PrettyPrinter(indent=3, width=100)
 
 seqTypes = (type([]), type(()))
 stringTypes = (type(''), type(u''))
@@ -37,8 +37,8 @@ def buildRecord(rec, items):
             line += link
         else:
             print >> sys.stderr, "DEBUGX:", type(val), val
-            if type(val) in seqTypes:
-                val = "<br/>" + pprint.pformat(val).replace("\n","<br/>")
+            if (type(val) in seqTypes):# or (type(val)==type({})):
+                val = "<pre>" + pprint.pformat(val) + "</pre>"
             line += "%s" % val
         line += "<br/>"
         items.append(line)
