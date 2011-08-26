@@ -7,6 +7,8 @@ import api
 from bson.objectid import ObjectId
 con = pm.Connection()
 mong = con.mong
+from pprint import PrettyPrinter
+pprint = PrettyPrinter()
 
 seqTypes = (type([]), type(()))
 stringTypes = (type(''), type(u''))
@@ -34,6 +36,9 @@ def buildRecord(rec, items):
             link = "<a href='%s' style='text-decoration:none'>%s</a>" % (query, val)
             line += link
         else:
+            print >> sys.stderr, "DEBUGX:", type(val), val
+            if type(val) in seqTypes:
+                val = "<br/>" + pprint.pformat(val).replace("\n","<br/>")
             line += "%s" % val
         line += "<br/>"
         items.append(line)
