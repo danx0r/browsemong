@@ -36,8 +36,7 @@ def buildRecord(rec, items):
             link = "<a href='%s' style='text-decoration:none'>%s</a>" % (query, val)
             line += link
         else:
-            print >> sys.stderr, "DEBUGX:", type(val), val
-            if (type(val) in seqTypes) or (type(val)==type({}) and len(val)>3):
+            if (type(val) in seqTypes) or (type(val)==type({}) and len(val)>6):
                 val = "<pre>" + pprint.pformat(val) + "</pre>"
             line += "%s" % val
         line += "<br/>"
