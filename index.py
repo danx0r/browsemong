@@ -26,7 +26,9 @@ def buildRecord(rec, items):
         if val == None:
             val = "null"
         try:
-            val = int(val)
+            val = float(val)
+            if val == int(val):
+                val = int(val)
             val = str(val)
         except:
             pass
