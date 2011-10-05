@@ -18,8 +18,6 @@ def underfirst(a, b):
     return -1 
 
 def buildRecord(rec, items):
-##    items.append(str(type(rec)).replace("<","|"))
-##    return
     keys = rec.keys()
     keys.sort(cmp=underfirst)
     line = "<ul>\n"
@@ -37,25 +35,27 @@ def buildRecord(rec, items):
         if (type(val) in seqTypes) or (type(val)==type({}) and len(val)>6):
             if len(val):
                 line += '<li class="closed">'
-    ##                val = "<pre>" + pprint.pformat(val) + "</pre>"
                 line += "<b><i>" + key + ":</i></b>"
                 line += "<ul>\n"
-    ##            line += "***LIST***<br/>\n"
                 for v in val:
                     line += "\n<li>"
                     line += str(v)
                     line += "</li>"
                 line += "\n</ul>\n"
+                line += "</li>"
         else:
-            line += "<li>"
-            line += "<i>" + key + ":</i> "
-##            if key != "DictionaryEntry" and '[' in val and ']' in val and val.rfind(']') - val.rfind('[') == 5:
-##                query = '?action=query&q={"_id":"%s"}&collection=["Person", "Letter", "Archive", "MPerson", "MPlace", "Event"]' % val
-##                link = "<a href='%s' style='text-decoration:none'>%s</a>" % (query, val)
-##                line += link
-            pass
-            line += "%s|%s" % (str(type(val)).replace("<","|"), val)
-        line += "</li>\n"
+            if len(val) > 100:
+                pass
+            else:
+                line += "<li>"
+                line += "<i>" + key + ":</i> "
+    ##            if key != "DictionaryEntry" and '[' in val and ']' in val and val.rfind(']') - val.rfind('[') == 5:
+    ##                query = '?action=query&q={"_id":"%s"}&collection=["Person", "Letter", "Archive", "MPerson", "MPlace", "Event"]' % val
+    ##                link = "<a href='%s' style='text-decoration:none'>%s</a>" % (query, val)
+    ##                line += link
+                line += "%s|%s" % (str(type(val)).replace("<","|"), val)
+                line += "</li>"
+        line += "\n"
     line += "</ul>\n"
     items.append(line)
 
