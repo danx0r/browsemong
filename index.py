@@ -22,8 +22,9 @@ def buildRecord(rec, items):
 ##    return
     keys = rec.keys()
     keys.sort(cmp=underfirst)
-    line = ""
+    line = "<ul>\n"
     for key in keys:
+        line += "<li>"
         val = rec[key]
         if val == None or val == "":
             continue
@@ -48,7 +49,8 @@ def buildRecord(rec, items):
 ##                line += link
             pass
         line += "%s|%s" % (str(type(val)).replace("<","|"), val)
-        line += "<br/>\n"
+        line += "</li>\n"
+    line += "</ul>\n"
     items.append(line)
 
 def application(environ, start_response):
