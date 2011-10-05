@@ -71,7 +71,9 @@ def buildRecord(rec, items, separator=True):
                 line += "</li>"
         elif type(val) in hashTypes:
             line += '<li class="closed">'
-            line += "<b><i>" + key + ":</i></b>"
+            line += "<i>" + key + ":</i>"
+            if "year" in val:                       #hack to make dates more readable
+                line += " " + str(int(val['year']))
             temp = []
             buildRecord(val, temp, separator=False)
             line += temp[0]
