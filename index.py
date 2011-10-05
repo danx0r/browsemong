@@ -42,12 +42,13 @@ def buildRecord(rec, items):
 ##            val = "***"
             pass
         else:
-            if key != "DictionaryEntry" and '[' in val and ']' in val and val.rfind(']') - val.rfind('[') == 5:
-                query = '?action=query&q={"_id":"%s"}&collection=["Person", "Letter", "Archive", "MPerson", "MPlace", "Event"]' % val
-                link = "<a href='%s' style='text-decoration:none'>%s</a>" % (query, val)
-                line += link
+##            if key != "DictionaryEntry" and '[' in val and ']' in val and val.rfind(']') - val.rfind('[') == 5:
+##                query = '?action=query&q={"_id":"%s"}&collection=["Person", "Letter", "Archive", "MPerson", "MPlace", "Event"]' % val
+##                link = "<a href='%s' style='text-decoration:none'>%s</a>" % (query, val)
+##                line += link
+            pass
         line += "%s|%s" % (str(type(val)).replace("<","|"), val)
-        line += "<br/>"
+        line += "<br/>\n"
     items.append(line)
 
 def application(environ, start_response):

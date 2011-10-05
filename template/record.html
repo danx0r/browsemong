@@ -29,8 +29,8 @@
             <ul id="browser">
                 <li>
                     <ul>
-                        <li py:for="rec in items">
-                            ___________________________________________________ <br/>
+                        <li py:for="i, rec in enumerate(items)" id="debug ${i}">
+                            ___________________________________________________ ${i}<br/>
                             ${Markup(rec)} 
                         </li>
                     </ul>
