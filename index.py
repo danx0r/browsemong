@@ -22,8 +22,8 @@ def buildRecord(rec, items):
     keys.sort(cmp=underfirst)
     for key in keys:
         val = rec[key]
-        if val == None:
-            val = "null"
+        if val == None or val == "":
+            continue
         try:
             val = float(val)
             if val == int(val):
@@ -32,15 +32,18 @@ def buildRecord(rec, items):
         except:
             pass
         line = "<i>" + key + ":</i> "
-        if '[' in val and ']' in val and val.rfind(']') - val.rfind('[') == 5:
-            query = '?action=query&q={"_id":"%s"}&collection=["Person","Group","Letter","Place","Archive","MPerson", "MPlace", "Event"]' % val
-            link = "<a href='%s' style='text-decoration:none'>%s</a>" % (query, val)
-            line += link
+        if key == "DictionaryEntry":
+            val = str(type(val)).replace("<","|")
+        if (type(val) in seqTypes) or (type(val)==type({}) and len(val)>6):
+##                val = "<pre>" + pprint.pformat(val) + "</pre>"
+##            val = "***"
+            pass
         else:
-            if (type(val) in seqTypes) or (type(val)==type({}) and len(val)>6):
-                val = "<pre>" + pprint.pformat(val) + "</pre>"
-            line += "%s" % val
-        line += "<br/>"
+            if key != "DictionaryEntry" and '[' in val and ']' in val and val.rfind(']') - val.rfind('[') == 5:
+                query = '?action=query&q={"_id":"%s"}&collection=["Person", "Letter", "Archive", "MPerson", "MPlace", "Event"]' % val
+                link = "<a href='%s' style='text-decoration:none'>%s</a>" % (query, val)
+                line += link
+        line += "%s|%s" % (str(type(val)).replace("<","|"), val)
         items.append(line)
 
 def application(environ, start_response):
@@ -53,8 +56,9 @@ def application(environ, start_response):
                 if type(rec) in stringTypes:
                     items.append(rec)
                 else:
-                    buildRecord(rec, items)
-                items.append("<br/>")
+                    rlist = []
+                    buildRecord(rec, rlist)
+                    items.append(rlist)
         else:
             items.append("no records found")
     else:
@@ -65,7 +69,7 @@ def application(environ, start_response):
     f = open(DOCROOT + template)
     tmpl = MarkupTemplate(f)
     f.close()
-    stream = tmpl.generate(DOCROOT=DOCROOT, items=items)
+    stream = tmpl.generate(DOCROOT=DOCROOT, items=items, seqTypes=seqTypes)
     output = stream.render('xhtml')
 
     status = '200 OK'
