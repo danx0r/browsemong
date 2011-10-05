@@ -30,24 +30,8 @@
                 <li>
                     <ul>
                         <li py:for="rec in items">
-                            ___________________________________________________
-                            <py:if test="type(rec) != type('')">
-                                <ul>
-                                    <li py:for="item in rec">
-                                        <py:if test="type(item) in seqTypes">
-                                            *** 
-                                        </py:if>
-                                        <py:if test="type(item) not in seqTypes">
-                                            ${Markup(item)} 
-                                        </py:if>
-                                    </li>
-                                </ul>
-                            </py:if>
-                            <py:if test="type(rec) == type('')">
-                                <ul>
-                                    ${Markup(rec)} 
-                                </ul>
-                            </py:if>
+                            ___________________________________________________ <br/>
+                            ${Markup(rec)} 
                         </li>
                     </ul>
                 </li>

@@ -18,8 +18,11 @@ def underfirst(a, b):
     return -1 
 
 def buildRecord(rec, items):
+##    items.append(str(type(rec)).replace("<","|"))
+##    return
     keys = rec.keys()
     keys.sort(cmp=underfirst)
+    line = ""
     for key in keys:
         val = rec[key]
         if val == None or val == "":
@@ -31,7 +34,7 @@ def buildRecord(rec, items):
             val = str(val)
         except:
             pass
-        line = "<i>" + key + ":</i> "
+        line += "<i>" + key + ":</i> "
         if key == "DictionaryEntry":
             val = str(type(val)).replace("<","|")
         if (type(val) in seqTypes) or (type(val)==type({}) and len(val)>6):
@@ -44,7 +47,8 @@ def buildRecord(rec, items):
                 link = "<a href='%s' style='text-decoration:none'>%s</a>" % (query, val)
                 line += link
         line += "%s|%s" % (str(type(val)).replace("<","|"), val)
-        items.append(line)
+        line += "<br/>"
+    items.append(line)
 
 def application(environ, start_response):
     output = api.mongoApi(environ)
@@ -56,9 +60,7 @@ def application(environ, start_response):
                 if type(rec) in stringTypes:
                     items.append(rec)
                 else:
-                    rlist = []
-                    buildRecord(rec, rlist)
-                    items.append(rlist)
+                    buildRecord(rec, items)
         else:
             items.append("no records found")
     else:
