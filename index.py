@@ -39,8 +39,11 @@ def buildRecord(rec, items):
                 line += "<ul>\n"
                 for v in val:
                     line += "\n<li>"
-                    line += str(v)
-                    line += "</li>"
+##                    line += str(v)
+                    temp = []
+                    buildRecord(v, temp)
+                    line += temp[0]
+                    line += "____________________________________________________________\n</li>"
                 line += "\n</ul>\n"
                 line += "</li>"
         else:
@@ -54,11 +57,12 @@ def buildRecord(rec, items):
             else:
                 line += "<li>"
                 line += "<i>" + key + ":</i> "
-    ##            if key != "DictionaryEntry" and '[' in val and ']' in val and val.rfind(']') - val.rfind('[') == 5:
-    ##                query = '?action=query&q={"_id":"%s"}&collection=["Person", "Letter", "Archive", "MPerson", "MPlace", "Event"]' % val
-    ##                link = "<a href='%s' style='text-decoration:none'>%s</a>" % (query, val)
-    ##                line += link
-                line += "%s|%s" % (str(type(val)).replace("<","|"), val)
+                if key != "DictionaryEntry" and '[' in val and ']' in val and val.rfind(']') - val.rfind('[') == 5:
+                    query = '?action=query&q={"_id":"%s"}&collection=["Person", "Letter", "Archive", "MPerson", "MPlace", "Event"]' % val
+                    link = "<a href='%s' style='text-decoration:none'>%s</a>" % (query, val)
+                    line += link
+                else:
+                    line += "%s" % val
                 line += "</li>"
         line += "\n"
     line += "</ul>\n"
