@@ -17,10 +17,12 @@ def underfirst(a, b):
         return 1
     return -1 
 
-def buildRecord(rec, items):
+def buildRecord(rec, items, separator=True):
     keys = rec.keys()
     keys.sort(cmp=underfirst)
     line = "<ul>\n"
+    if separator:
+        line += "========================================================================================\n"
     for key in keys:
         val = rec[key]
         if val == None or val == "":
@@ -37,13 +39,15 @@ def buildRecord(rec, items):
                 line += '<li class="closed">'
                 line += "<b><i>" + key + ":</i></b>"
                 line += "<ul>\n"
-                for v in val:
+                for j, v in enumerate(val):
                     line += "\n<li>"
 ##                    line += str(v)
                     temp = []
-                    buildRecord(v, temp)
+                    buildRecord(v, temp, separator=False)
                     line += temp[0]
-                    line += "____________________________________________________________\n</li>"
+                    if j != len(val)-1:
+                        line += "____________________________________________________________\n"
+                    line += "</li>"
                 line += "\n</ul>\n"
                 line += "</li>"
         else:
