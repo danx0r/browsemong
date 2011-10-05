@@ -24,7 +24,6 @@ def buildRecord(rec, items):
     keys.sort(cmp=underfirst)
     line = "<ul>\n"
     for key in keys:
-        line += "<li>"
         val = rec[key]
         if val == None or val == "":
             continue
@@ -35,20 +34,27 @@ def buildRecord(rec, items):
             val = str(val)
         except:
             pass
-        line += "<i>" + key + ":</i> "
-        if key == "DictionaryEntry":
-            val = str(type(val)).replace("<","|")
         if (type(val) in seqTypes) or (type(val)==type({}) and len(val)>6):
-##                val = "<pre>" + pprint.pformat(val) + "</pre>"
-##            val = "***"
-            pass
+            if len(val):
+                line += '<li class="closed">'
+    ##                val = "<pre>" + pprint.pformat(val) + "</pre>"
+                line += "<b><i>" + key + ":</i></b>"
+                line += "<ul>\n"
+    ##            line += "***LIST***<br/>\n"
+                for v in val:
+                    line += "\n<li>"
+                    line += str(v)
+                    line += "</li>"
+                line += "\n</ul>\n"
         else:
+            line += "<li>"
+            line += "<i>" + key + ":</i> "
 ##            if key != "DictionaryEntry" and '[' in val and ']' in val and val.rfind(']') - val.rfind('[') == 5:
 ##                query = '?action=query&q={"_id":"%s"}&collection=["Person", "Letter", "Archive", "MPerson", "MPlace", "Event"]' % val
 ##                link = "<a href='%s' style='text-decoration:none'>%s</a>" % (query, val)
 ##                line += link
             pass
-        line += "%s|%s" % (str(type(val)).replace("<","|"), val)
+            line += "%s|%s" % (str(type(val)).replace("<","|"), val)
         line += "</li>\n"
     line += "</ul>\n"
     items.append(line)
