@@ -70,8 +70,11 @@ def buildRecord(rec, items, separator=True):
                     line += "%s" % val
                 line += "</li>"
         elif type(val) in hashTypes:
-            line += "<li>"
-            line += "hashType: %s" % val
+            line += '<li class="closed">'
+            line += "<b><i>" + key + ":</i></b>"
+            temp = []
+            buildRecord(val, temp, separator=False)
+            line += temp[0]
             line += "</li>"
         else:
             line += "<li>"
