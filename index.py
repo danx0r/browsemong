@@ -11,6 +11,7 @@ pprint = PrettyPrinter(indent=3, width=100)
 
 seqTypes = (type([]), type(()))
 stringTypes = (type(''), type(u''))
+hashTypes = (type({}),)
 
 def underfirst(a, b):
     if (a.lower() > b.lower()):
@@ -50,7 +51,7 @@ def buildRecord(rec, items, separator=True):
                     line += "</li>"
                 line += "\n</ul>\n"
                 line += "</li>"
-        else:
+        elif type(val) in stringTypes:
             if len(val) > 100:
                 line += '<li class="closed">'
                 line += "<b><i>" + key + ":</i></b>"
@@ -68,6 +69,15 @@ def buildRecord(rec, items, separator=True):
                 else:
                     line += "%s" % val
                 line += "</li>"
+        elif type(val) in hashTypes:
+            line += "<li>"
+            line += "hashType: %s" % val
+            line += "</li>"
+        else:
+            line += "<li>"
+            line += "---unknown type:" + str(val)
+            line += "</li>"
+           
         line += "\n"
     line += "</ul>\n"
     items.append(line)
