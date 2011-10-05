@@ -45,7 +45,12 @@ def buildRecord(rec, items):
                 line += "</li>"
         else:
             if len(val) > 100:
-                pass
+                line += '<li class="closed">'
+                line += "<b><i>" + key + ":</i></b>"
+                line += "<ul>\n"
+                line += "%s" % val
+                line += "\n</ul>\n"
+                line += "</li>"
             else:
                 line += "<li>"
                 line += "<i>" + key + ":</i> "
