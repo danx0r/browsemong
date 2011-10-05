@@ -4,7 +4,6 @@ DOCROOT = os.path.dirname(__file__)
 sys.path[:0] = [os.path.join(DOCROOT, "../data")]
 import pymongo as pm
 import api
-from bson.objectid import ObjectId
 con = pm.Connection()
 mong = con.mong
 from pprint import PrettyPrinter
